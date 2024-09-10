@@ -57,13 +57,20 @@ install_oh_my_posh() {
         echo "unzip 已安装"
     fi
 
-    if ! curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; then
-        echo "Oh My Posh 安装失败"
-        exit 1
-    fi
-
     echo "Oh My Posh 添加到环境变量中"
     'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+
+    if ! command_exists "oh-my-posh"; then
+        echo "oh-my-posh 未安装，开始安装..."
+        if ! curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; then
+            echo "Oh My Posh 安装失败"
+            exit 1
+        fi
+        echo "oh-my-posh 已安装"
+    else
+        echo "oh-my-posh 已安装"
+    fi
+
 
     echo "Oh My Posh 安装完成"
 
