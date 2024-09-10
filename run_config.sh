@@ -58,7 +58,12 @@ install_oh_my_posh() {
     fi
 
     echo "Oh My Posh 添加到环境变量中"
-    'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+    if ! grep -q 'export PATH=$PATH:~/.local/bin' ~/.bashrc; then
+        echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+        echo "Oh My Posh 已添加到 bash 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 bash 配置文件中"
+    fi
 
     if ! command_exists "oh-my-posh"; then
         echo "oh-my-posh 未安装，开始安装..."
@@ -70,7 +75,6 @@ install_oh_my_posh() {
     else
         echo "oh-my-posh 已安装"
     fi
-
 
     echo "Oh My Posh 安装完成"
 
@@ -125,6 +129,9 @@ cp -u .tmux.conf ~/
 cp -r .tmux ~/
 cp -u -r fish ~/.conf/
 cp -u -r omf ~/.conf/
+
+# 将用户本地的local文件夹添加到环境变量中实现
+# echo "这是要添加到文件开头的句子" | cat - 文件名 > temp_file && mv temp_file 文件名
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
