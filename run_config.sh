@@ -114,10 +114,10 @@ cp -u .profile ~/
 cp -u .bashrc ~/
 cp -u .vimrc ~/
 cp -u .gitconfig ~/
-cp -r .tmux ~/
 cp -u .tmux.conf ~/
-cp -u fish ~/.conf/
-cp -u omf ~/.conf/
+cp -r .tmux ~/
+cp -u -r fish ~/.conf/
+cp -u -r omf ~/.conf/
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
