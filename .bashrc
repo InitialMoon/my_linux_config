@@ -101,7 +101,6 @@ PS1="\[\e[37;40m\][\[\e[37;40m\]\u@ \[\e[36;40m\]\W\[\e[0m\]]# "
 #if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 #    . /etc/bash_completion
 #fi
-eval "$(oh-my-posh init bash --config /mnt/c/Users/14618/AppData/Local/oh-my-posh/.poshthemes/spaceship.omp.json)"
 
 #Install Ruby Gems to ~/gems
 # export GEM_HOME="HOME/gems"
@@ -139,4 +138,5 @@ set -o vi
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
-
+export PATH=$PATH:~/.local/bin
+eval "$(oh-my-posh init bash | source)"
