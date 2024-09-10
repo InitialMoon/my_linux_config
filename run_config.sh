@@ -13,6 +13,29 @@ install_unzip() {
     apt-get install unzip
 }
 
+# 配置 oh-my-posh
+config_oh_my_posh() {
+    echo "使Oh My Posh 在终端生效"
+    echo "当前所在的终端是"
+    oh-my-posh get shell
+
+    # Add the following to ~/.bashrc (could be ~/.profile or ~/.bash_profile depending on your environment):
+    eval "$(oh-my-posh init bash)"
+
+    # Once added, reload your profile for the changes to take effect.
+    exec bash
+
+    # Or, when using ~/.profile.
+    . ~/.profile
+
+    echo "将终端的默认shell切换为fish进行配置"
+    fish
+
+    oh-my-posh init fish | source
+
+    exec fish
+}
+
 # 安装 oh-my-posh
 install_oh_my_posh() {
     echo "正在安装 Oh My Posh..."
@@ -34,26 +57,6 @@ install_oh_my_posh() {
 
     echo "Oh My Posh 安装meslo字体"
     oh-my-posh font install meslo
-
-    echo "使Oh My Posh 在终端生效"
-    echo "当前所在的终端是"
-    oh-my-posh get shell
-
-    # Add the following to ~/.bashrc (could be ~/.profile or ~/.bash_profile depending on your environment):
-    eval "$(oh-my-posh init bash)"
-
-    # Once added, reload your profile for the changes to take effect.
-    exec bash
-
-    # Or, when using ~/.profile.
-    . ~/.profile
-
-    echo "将终端的默认shell切换为fish进行配置"
-    fish
-
-    oh-my-posh init fish | source
-
-    exec fish
 }
 
 # 安装 fish shell
@@ -83,19 +86,34 @@ install_fish() {
 }
 
 # 定义软件名称与对应的安装函数
-declare -A software_list=(
-    # fish 必须在oh-my-posh之前进行安装，否则oh-my-posh在进行fish配置的时候会报错
+declare -A install_software_list=(
     ["fish"]="install_fish"
     ["oh-my-posh"]="install_oh_my_posh"
 )
 
+# 定义软件名称与对应的安装函数
+declare -A install_software_list=(
+    ["oh-my-posh"]="config_oh_my_posh"
+)
+
 # 循环检查并安装软件
-for software in "${!software_list[@]}"; do
+for software in "${!install_software_list[@]}"; do
     if ! command_exists "$software"; then
         echo "$software 未安装，开始安装..."
-        ${software_list[$software]}
+        ${install_software_list[$software]}
     else
         echo "$software 已安装"
+    fi
+done
+
+# 循环检查并配置安装的软件
+for software in "${!config_software_list[@]}"; do
+    if ! command_exists "$software"; then
+        echo "$software 未安装，开始安装..."
+    else
+        echo "$software 已安装"
+        echo "开始配置 $software"
+        ${config_software_list[$software]}
     fi
 done
 
