@@ -33,7 +33,7 @@ end
 
 # Created by `pipx` on 2024-08-21 12:48:44
 # Add user software to env path
-set PATH $PATH /home/moon/.local/bin
+set PATH $PATH ~/.local/bin
 
 # nodejs18 setting
 
