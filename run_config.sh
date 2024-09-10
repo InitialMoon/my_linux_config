@@ -105,7 +105,8 @@ cp .profile ~/
 cp .bashrc ~/
 cp .vimrc ~/
 cp .gitconfig ~/
-cp .tmux ~/
+cp -r .tmux ~/
+cp .tmux.conf ~/
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
