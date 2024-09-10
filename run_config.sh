@@ -126,6 +126,7 @@ config_fish() {
 config_tmux() {
     cp -u .tmux.conf ~/
     cp -r .tmux ~/
+    tmux source ~/.tmux.conf
 }
 
 # 定义软件名称与对应的安装函数
