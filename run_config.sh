@@ -117,13 +117,13 @@ config_oh_my_posh() {
 
 # 配置 fish
 config_fish() {
+    install_oh_my_fish
     cp -u -r fish ~/.config/
     cp -u -r omf ~/.config/
 }
 
 # 配置 tmux
 config_tmux() {
-    install_oh_my_fish
     cp -u .tmux.conf ~/
     cp -r .tmux ~/
 }
