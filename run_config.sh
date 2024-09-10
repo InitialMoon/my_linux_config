@@ -120,7 +120,6 @@ done
 # 循环检查并配置安装的软件
 for software in "${!config_software_list[@]}"; do
     if  command_exists "$software"; then
-        echo "$software 已安装"
         echo "开始配置 $software"
         ${config_software_list[$software]}
     else
