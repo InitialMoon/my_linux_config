@@ -18,30 +18,11 @@ install_unzip() {
     apt-get install unzip
 }
 
-# 配置 oh-my-posh
-config_oh_my_posh() {
-    echo "正在为 Bash 终端配置 Oh My Posh..."
-
-    # 为当前用户的 Bash 终端配置 oh-my-posh
-    if ! grep -q 'oh-my-posh' ~/.bashrc; then
-        echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc
-        echo "Oh My Posh 已添加到 Bash 配置文件中"
-    else
-        echo "Oh My Posh 已存在于 Bash 配置文件中"
-    fi
-
-    # 为 Fish shell 配置 oh-my-posh
-    echo "正在为 Fish 终端配置 Oh My Posh..."
-    if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
-        echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
-        echo "Oh My Posh 已添加到 Fish 配置文件中"
-    else
-        echo "Oh My Posh 已存在于 Fish 配置文件中"
-    fi
-
-    # 提示用户手动重载配置
-    echo "请手动运行 'source ~/.bashrc' 或 'exec bash' 以使 Bash 配置生效。"
-    echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
+# 用户自身安装oh my fish，主要是为了支持一些插件
+install_oh_my_fish() {
+    # install oh my fish
+    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+    fish install --path=~/.local/share/omf --config=~/.config/omf
 }
 
 # 安装 oh-my-posh
@@ -108,6 +89,45 @@ install_fish() {
     echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"
 }
 
+# 配置 oh-my-posh
+config_oh_my_posh() {
+    echo "正在为 Bash 终端配置 Oh My Posh..."
+
+    # 为当前用户的 Bash 终端配置 oh-my-posh
+    if ! grep -q 'oh-my-posh' ~/.bashrc; then
+        echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc
+        echo "Oh My Posh 已添加到 Bash 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 Bash 配置文件中"
+    fi
+
+    # 为 Fish shell 配置 oh-my-posh
+    echo "正在为 Fish 终端配置 Oh My Posh..."
+    if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
+        echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
+        echo "Oh My Posh 已添加到 Fish 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 Fish 配置文件中"
+    fi
+
+    # 提示用户手动重载配置
+    echo "请手动运行 'source ~/.bashrc' 或 'exec bash' 以使 Bash 配置生效。"
+    echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
+}
+
+# 配置 fish
+config_fish() {
+    cp -u -r fish ~/.config/
+    cp -u -r omf ~/.config/
+}
+
+# 配置 tmux
+config_tmux() {
+    install_oh_my_fish
+    cp -u .tmux.conf ~/
+    cp -r .tmux ~/
+}
+
 # 定义软件名称与对应的安装函数
 declare -A install_software_list=(
     ["fish"]="install_fish"
@@ -118,6 +138,8 @@ declare -A install_software_list=(
 # 定义软件名称与对应的安装函数
 declare -A config_software_list=(
     ["oh-my-posh"]="config_oh_my_posh"
+    ["fish"]="config_fish"
+    ["tmux"]="config_tmux"
 )
 
 # 复制基本配置文件到用户根目录下
@@ -125,10 +147,6 @@ cp -u .profile ~/
 cp -u .bashrc ~/
 cp -u .vimrc ~/
 cp -u .gitconfig ~/
-cp -u .tmux.conf ~/
-cp -r .tmux ~/
-cp -u -r fish ~/.conf/
-cp -u -r omf ~/.conf/
 
 # 将用户本地的local文件夹添加到环境变量中实现
 # echo "这是要添加到文件开头的句子" | cat - 文件名 > temp_file && mv temp_file 文件名
