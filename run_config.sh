@@ -15,25 +15,29 @@ install_unzip() {
 
 # 配置 oh-my-posh
 config_oh_my_posh() {
-    echo "使Oh My Posh 在终端生效"
-    echo "当前所在的终端是"
-    oh-my-posh get shell
+    # 配置 oh-my-posh
+    echo "正在为 Bash 终端配置 Oh My Posh..."
 
-    # Add the following to ~/.bashrc (could be ~/.profile or ~/.bash_profile depending on your environment):
-    eval "$(oh-my-posh init bash)"
+    # 为当前用户的 Bash 终端配置 oh-my-posh
+    if ! grep -q 'oh-my-posh' ~/.bashrc; then
+        echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc
+        echo "Oh My Posh 已添加到 Bash 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 Bash 配置文件中"
+    fi
 
-    # Once added, reload your profile for the changes to take effect.
-    exec bash
+    # 为 Fish shell 配置 oh-my-posh
+    echo "正在为 Fish 终端配置 Oh My Posh..."
+    if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
+        echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
+        echo "Oh My Posh 已添加到 Fish 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 Fish 配置文件中"
+    fi
 
-    # Or, when using ~/.profile.
-    . ~/.profile
-
-    echo "将终端的默认shell切换为fish进行配置"
-    fish
-
-    oh-my-posh init fish | source
-
-    exec fish
+    # 提示用户手动重载配置
+    echo "请手动运行 'source ~/.bashrc' 或 'exec bash' 以使 Bash 配置生效。"
+    echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
 }
 
 # 安装 oh-my-posh
@@ -92,7 +96,7 @@ declare -A install_software_list=(
 )
 
 # 定义软件名称与对应的安装函数
-declare -A install_software_list=(
+declare -A config_software_list=(
     ["oh-my-posh"]="config_oh_my_posh"
 )
 
@@ -108,12 +112,12 @@ done
 
 # 循环检查并配置安装的软件
 for software in "${!config_software_list[@]}"; do
-    if ! command_exists "$software"; then
-        echo "$software 未安装，开始安装..."
-    else
+    if  command_exists "$software"; then
         echo "$software 已安装"
         echo "开始配置 $software"
         ${config_software_list[$software]}
+    else
+        echo "$software 未安装"
     fi
 done
 
