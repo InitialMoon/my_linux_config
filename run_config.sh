@@ -9,6 +9,11 @@ command_exists() {
 }
 
 # 全局安装 unzip
+install_htop() {
+    apt-get install htop
+}
+
+# 全局安装 unzip
 install_unzip() {
     apt-get install unzip
 }
@@ -56,6 +61,10 @@ install_oh_my_posh() {
         echo "Oh My Posh 安装失败"
         exit 1
     fi
+
+    echo "Oh My Posh 添加到环境变量中"
+    'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+
     echo "Oh My Posh 安装完成"
 
     echo "Oh My Posh 安装meslo字体"
@@ -92,6 +101,7 @@ install_fish() {
 declare -A install_software_list=(
     ["fish"]="install_fish"
     ["oh-my-posh"]="install_oh_my_posh"
+    ["htop"]="install_htop"
 )
 
 # 定义软件名称与对应的安装函数
@@ -100,12 +110,14 @@ declare -A config_software_list=(
 )
 
 # 复制基本配置文件到用户根目录下
-cp .profile ~/
-cp .bashrc ~/
-cp .vimrc ~/
-cp .gitconfig ~/
+cp -u .profile ~/
+cp -u .bashrc ~/
+cp -u .vimrc ~/
+cp -u .gitconfig ~/
 cp -r .tmux ~/
-cp .tmux.conf ~/
+cp -u .tmux.conf ~/
+cp -u fish ~/.conf/
+cp -u omf ~/.conf/
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
