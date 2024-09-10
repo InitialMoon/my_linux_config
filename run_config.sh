@@ -126,6 +126,7 @@ config_fish() {
 config_tmux() {
     cp -u .tmux.conf ~/
     cp -r .tmux ~/
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     tmux source ~/.tmux.conf
 }
 
