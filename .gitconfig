@@ -1,0 +1,34 @@
+[user]
+	name = InitialMoon
+	email = jieyingqi814@qq.com
+[core]
+	editor = vim
+	quotepath = false
+	autocrlf = false
+[init]
+	defaultBranch = main
+[alias]
+	co = checkout
+	cm = commit
+	br = checkout -b
+	st = status -s
+	last = log -1 HEAD
+	ls = log --oneline
+        lg = log --oneline --decorate --graph --all
+        lag = log --decorate --graph --all
+	db = branch -d
+	mg = merge
+[pull]
+	rebase = true
+[imap]
+    folder = "[Qmail]/Drafts"
+    host = imaps://imap.gmail.com
+    user = jiesam39@gmail.com
+    pass = axzsjyq831#-#&@
+    port = 993
+    sslverify = false
+[rerere]
+	enable = true
+[http]
+[push]
+	default = upstream
