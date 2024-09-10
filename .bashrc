@@ -104,8 +104,8 @@ PS1="\[\e[37;40m\][\[\e[37;40m\]\u@ \[\e[36;40m\]\W\[\e[0m\]]# "
 eval "$(oh-my-posh init bash --config /mnt/c/Users/14618/AppData/Local/oh-my-posh/.poshthemes/spaceship.omp.json)"
 
 #Install Ruby Gems to ~/gems
-export GEM_HOME="HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+# export GEM_HOME="HOME/gems"
+# export PATH="$HOME/gems/bin:$PATH"
 
 #Include C and CPP's std lib
 # C
@@ -117,7 +117,7 @@ export CPLUS_INCLUDE_PATH=XXX:$CPLUS_INCLUDE_PATH
 set -o vi
 # set -o emacs
 
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 
 # export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -127,16 +127,16 @@ set -o vi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/moon/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/moon/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/moon/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/moon/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/home/moon/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/moon/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/moon/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/moon/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 

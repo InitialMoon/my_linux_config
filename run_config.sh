@@ -15,7 +15,6 @@ install_unzip() {
 
 # 配置 oh-my-posh
 config_oh_my_posh() {
-    # 配置 oh-my-posh
     echo "正在为 Bash 终端配置 Oh My Posh..."
 
     # 为当前用户的 Bash 终端配置 oh-my-posh
