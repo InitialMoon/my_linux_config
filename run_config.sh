@@ -100,6 +100,13 @@ declare -A config_software_list=(
     ["oh-my-posh"]="config_oh_my_posh"
 )
 
+# 复制基本配置文件到用户根目录下
+cp .profile ~/
+cp .bashrc ~/
+cp .vimrc ~/
+cp .gitconfig ~/
+cp .tmux ~/
+
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
     if ! command_exists "$software"; then
