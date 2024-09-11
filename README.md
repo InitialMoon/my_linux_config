@@ -10,8 +10,6 @@ You are on a Linux system, doc only test on Ubuntu18.04/20.04.
 
 - apt install can use
 
-- pip3 is installed, install tldr
-
 - You have a user account on your Linux system
 
   ```bash
@@ -64,3 +62,9 @@ ssh-add [path-to-your-key]
 > $ eval (ssh-agent)
 > ```
 > This will start the agent and make it available to handle SSH key operations.
+
+
+
+### Step 3 
+
+pip3 is installed, to install tldr, you maybe config your python env before this 

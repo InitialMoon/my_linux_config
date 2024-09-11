@@ -114,13 +114,12 @@ config_oh_my_posh() {
         echo "Oh My Posh 已存在于 bash 配置文件中"
     fi
 
-    if ! grep -q 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' ~/.config/fish/config.fish; then
-        echo 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
-        echo "Oh My Posh 已添加到 fish 配置文件中"
-    else
-        echo "Oh My Posh 已存在于 fish 配置文件中"
-    fi
-
+    # if ! grep -q 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' ~/.config/fish/config.fish; then
+    #     echo 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
+    #     echo "Oh My Posh 已添加到 fish 配置文件中"
+    # else
+    #     echo "Oh My Posh 已存在于 fish 配置文件中"
+    # fi
 }
 
 # 配置 oh-my-fish
@@ -128,7 +127,6 @@ config_omf() {
     echo "正在为 fish 终端配置 Oh My Fish..."
 
     omf install https://github.com/h-matsuo/fish-color-scheme-switcher
-    # 为 Fish shell 配置 oh-my-posh
 
     # 提示用户手动重载配置
     echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
@@ -137,13 +135,13 @@ config_omf() {
 
 # 配置 fish
 config_fish() {
-    # if ! command_exists "omf"; then
-    #     echo "omf 未安装，开始安装..."
-    #     install_omf
-    #     config_omf
-    # else
-    #     echo "omf 已安装"
-    # fi
+    if ! command_exists "omf"; then
+        echo "omf 未安装，开始安装..."
+        install_omf
+        config_omf
+    else
+        echo "omf 已安装"
+    fi
     cp -u -r fish ~/.config/
     # cp -u -r omf ~/.config/
 }
@@ -161,7 +159,7 @@ declare -A install_software_list=(
     ["fzf"]="install_fzf"
     ["fish"]="install_fish"
     ["oh-my-posh"]="install_oh_my_posh"
-    # ["omf"]="install_omf"
+    ["omf"]="install_omf"
 )
 
 # 定义软件名称与对应的安装函数
