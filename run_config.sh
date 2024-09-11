@@ -165,9 +165,6 @@ config_oh_my_posh() {
 # 配置 oh-my-fish
 config_omf() {
     echo "正在为 fish 终端配置 Oh My Fish..."
-
-    omf install https://github.com/h-matsuo/fish-color-scheme-switcher
-
     # 提示用户手动重载配置
     echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
     omf reload
@@ -194,10 +191,11 @@ config_tmux() {
 }
 
 # 定义软件名称与对应的安装函数
+# 这里的安装顺序是按照首字符进行的，所以没法直接控制安装顺序，
+# 暂且先将要在之前安装的部分放在外面
 declare -A install_software_list=(
     ["htop"]="install_htop"
-    ["fzf"]="install_fzf"
-    ["fish"]="install_fish"
+    # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
     ["omf"]="install_omf"
 )
@@ -211,6 +209,7 @@ declare -A config_software_list=(
 
 # 复制基本配置文件到用户根目录下
 basic_config
+install_fish
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
