@@ -141,6 +141,14 @@ chmod +x run_config.sh
 
 I have install the omf and setting some config in .tmux.conf for you,  but you have to activate tmux and use `perfix + I` to install plugin, perfix is `Ctrl+d`
 
+### Step 4 Setting Fish to default shell
+
+```bash
+chsh -s /usr/bin/fish
+```
+
+
+
 ### Other things TODO
 
 if pip3 is installed, you can install tldr, you maybe config your python env before this step
