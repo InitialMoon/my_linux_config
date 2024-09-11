@@ -29,20 +29,6 @@ install_omf() {
     sudo apt-get install fonts-powerline
     curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
     fish install --path=~/.local/share/omf --config=~/.config/omf
-    echo "安装并设置bobthefish主题"
-    omf install bobthefish
-    omf theme bobthefish
-    omf doctor
-    # 设置bobthefish提供的命令提示符的颜色配置
-    # 这里的color-scheme指的是在输入命令的时候的高亮颜色方案
-    if ! grep -q 'set theme_color_scheme nord' ~/.config/fish/config.fish; then
-        echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
-    fi
-    echo "安装并设置catppuccin配色"
-    omf install https://github.com/h-matsuo/fish-color-scheme-switcher
-    if ! grep -q 'scheme set catppuccin' ~/.config/fish/config.fish; then
-        echo 'scheme set catppuccin' >> ~/.config/fish/config.fish
-    fi
 }
 
 # 安装 oh-my-posh
@@ -106,10 +92,6 @@ install_fish() {
         echo '/usr/bin/fish' | sudo tee -a /etc/shells
     fi
 
-    # 提示用户需要更改默认 shell（如果需要）
-    echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"
-    echo "chsh -l               //列出可用shell"
-    echo "chsh -s /bin/fish     //设置shell为/bin/fish"
 }
 
 basic_config() {
@@ -148,6 +130,7 @@ config_oh_my_posh() {
     echo "为fish和bash使用oh-my-posh进行主题配置"
     echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init bash --config ~/.ompthemes/spaceship.json)'"
     if ! grep -q 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' ~/.bashrc > /dev/null; then
+        echo '\n' >> ~/.bashrc
         echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
         echo "Oh My Posh 已添加到 bash 配置文件中"
     else
@@ -164,9 +147,20 @@ config_oh_my_posh() {
 
 # 配置 oh-my-fish
 config_omf() {
-    echo "正在为 fish 终端配置 Oh My Fish..."
-    # 提示用户手动重载配置
-    echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
+    echo "omf安装并设置bobthefish主题"
+    omf install bobthefish
+    omf theme bobthefish
+    omf doctor
+    # 设置bobthefish提供的命令提示符的颜色配置
+    # 这里的color-scheme指的是在输入命令的时候的高亮颜色方案
+    if ! grep -q 'set theme_color_scheme nord' ~/.config/fish/config.fish; then
+        echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
+    fi
+    echo "安装并设置catppuccin配色"
+    omf install https://github.com/h-matsuo/fish-color-scheme-switcher
+    if ! grep -q 'scheme set catppuccin' ~/.config/fish/config.fish; then
+        echo 'scheme set catppuccin' >> ~/.config/fish/config.fish
+    fi
     omf reload
 }
 
@@ -177,14 +171,15 @@ config_fish() {
         echo "Oh My Fish 未安装"
         echo "开始安装..."
         install_omf
-        config_omf
     else
         echo "Oh My Fish 已安装"
     fi
+    config_omf
 }
 
 # 配置 tmux
 config_tmux() {
+    sudo apt-get -y install xdg-utils
     cp -u .tmux.conf ~/
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     tmux source ~/.tmux.conf
@@ -235,6 +230,11 @@ for software in "${!config_software_list[@]}"; do
         echo "$software 未安装"
     fi
 done
+
+# 提示用户需要更改默认 shell（如果需要）
+echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"
+echo "chsh -l               //列出可用shell"
+echo "chsh -s /bin/fish     //设置shell为/bin/fish"
 
 # 一些可能未来要用到的知识
 # 将用户本地的local文件夹添加到环境变量中实现
