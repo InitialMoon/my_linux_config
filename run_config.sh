@@ -26,8 +26,24 @@ install_unzip() {
 # 用户自身安装oh my fish，主要是为了支持一些插件
 install_omf() {
     # install oh my fish
+    sudo apt-get install fonts-powerline
     curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
     fish install --path=~/.local/share/omf --config=~/.config/omf
+    echo "安装并设置bobthefish主题"
+    omf install bobthefish
+    omf theme bobthefish
+    omf doctor
+    # 设置bobthefish提供的命令提示符的颜色配置
+    set theme_color_scheme nord
+    # 这里的color-scheme指的是在输入命令的时候的高亮颜色方案
+    if ! grep -q 'set theme_color_scheme nord' ~/.config/fish/config.fish; then
+        echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
+    fi
+    echo "安装并设置catppuccin配色"
+    omf install https://github.com/h-matsuo/fish-color-scheme-switcher
+    if ! grep -q 'scheme set catppuccin' ~/.config/fish/config.fish; then
+        echo 'scheme set catppuccin' >> ~/.config/fish/config.fish
+    fi
 }
 
 # 安装 oh-my-posh
@@ -97,6 +113,30 @@ install_fish() {
 }
 
 basic_config() {
+    # 防止原始设置被覆盖
+    echo "备份原始配置"
+    FILES=(".profile" ".bashrc" ".vimrc" ".gitconfig" ".tmux.conf")
+    BACKUP_DIR=~/backup_configs
+
+    # 创建备份目录（如果不存在）
+    mkdir -p "$BACKUP_DIR"
+
+    # 获取当前时间戳
+    timestamp=$(date +%Y%m%d_%H%M%S)
+
+    # 遍历每个文件并进行备份
+    for file in "${FILES[@]}"; do
+        target="$HOME/$file"
+        if [ -f "$target" ]; then
+            echo "Backing up $target to $BACKUP_DIR/$file.$timestamp"
+            cp "$target" "$BACKUP_DIR/$file.$timestamp"
+        fi
+        # 使用 -u 选项执行覆盖复制
+        cp -u "$file" "$HOME/"
+    done
+
+    echo "Backup and update completed!"
+
     cp -u .profile ~/
     cp -u .bashrc ~/
     cp -u .vimrc ~/
