@@ -147,7 +147,17 @@ I have install the omf and setting some config in .tmux.conf for you,  but you h
 chsh -s /usr/bin/fish
 ```
 
+### Step 5 Install omf themes（if omf not effect）
 
+```fish
+omf install bobthefish
+omf theme bobthefish
+omf doctor
+echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
+omf install https://github.com/h-matsuo/fish-color-scheme-switcher
+echo 'scheme set catppuccin' >> ~/.config/fish/config.fish
+omf reload
+```
 
 ### Other things TODO
 
