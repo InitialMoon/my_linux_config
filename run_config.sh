@@ -10,22 +10,22 @@ command_exists() {
 
 # 全局安装 htop
 install_htop() {
-    apt-get install htop
+    sudo apt-get install htop
 }
 
 # 全局安装 fzf
 install_tldr() {
-    pip3 install tldr
+    sudo pip3 install tldr
 }
 
 # 全局安装 fzf
 install_fzf() {
-    apt-get install fzf
+    sudo apt-get install fzf
 }
 
 # 全局安装 unzip
 install_unzip() {
-    apt-get install unzip
+    sudo apt-get install unzip
 }
 
 # 用户自身安装oh my fish，主要是为了支持一些插件
