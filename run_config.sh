@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 使脚本在遇到任何错误时立即退出
-set -e
+# set -e
 
 # 检查命令是否存在
 command_exists() {
@@ -172,12 +172,13 @@ config_omf() {
 
 # 配置 fish
 config_fish() {
-    if ! command_exists "omf"; then
-        echo "omf 未安装，开始安装..."
+    if ! grep -q 'COPY . /src/oh-my-fish' ~/.local/share/omf/Dockerfile; then
+        echo "Oh My Fish 未安装"
+        echo "开始安装..."
         install_omf
         config_omf
     else
-        echo "omf 已安装"
+        echo "Oh My Fish 已安装"
     fi
     cp -u -r fish ~/.config/
     # cp -u -r omf ~/.config/
@@ -197,7 +198,7 @@ declare -A install_software_list=(
     ["htop"]="install_htop"
     # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
-    ["omf"]="install_omf"
+    # ["omf"]="install_omf"
 )
 
 # 定义软件名称与对应的安装函数
