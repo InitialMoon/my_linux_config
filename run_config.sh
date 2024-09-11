@@ -144,10 +144,10 @@ basic_config() {
 }
 
 config_oh_my_posh() {
-    cp -r -u ./.omp_themes ..
+    cp -r -u .omp_themes ..
     echo "为fish和bash使用oh-my-posh进行主题配置"
     echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init bash --config ~/.ompthemes/spaceship.json)'"
-    if ! grep -q 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' ~/.bashrc > /dev/null; then
+    if ! grep -q 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' ~/.bashrc; then
         echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
         echo "Oh My Posh 已添加到 bash 配置文件中"
     else
