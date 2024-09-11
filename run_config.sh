@@ -234,7 +234,7 @@ done
 # 提示用户需要更改默认 shell（如果需要）
 echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"
 echo "chsh -l               //列出可用shell"
-echo "chsh -s /bin/fish     //设置shell为/bin/fish"
+echo "chsh -s /usr/bin/fish     //设置shell为/usr/bin/fish "
 
 # 一些可能未来要用到的知识
 # 将用户本地的local文件夹添加到环境变量中实现
