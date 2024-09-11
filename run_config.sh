@@ -14,11 +14,6 @@ install_htop() {
 }
 
 # 全局安装 fzf
-install_tldr() {
-    sudo pip3 install tldr
-}
-
-# 全局安装 fzf
 install_fzf() {
     sudo apt-get install fzf
 }
@@ -118,7 +113,7 @@ basic_config() {
 }
 
 config_oh_my_posh() {
-    cp ./.omp_themes ..
+    cp -r -u ./.omp_themes ..
     echo "为fish和bash使用oh-my-posh进行主题配置"
     echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.json)'"
     echo 'eval "$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.omp.json)"' >> ~/.bashrc
@@ -160,7 +155,6 @@ config_tmux() {
 
 # 定义软件名称与对应的安装函数
 declare -A install_software_list=(
-    ["tldr"]="install_tldr"
     ["htop"]="install_htop"
     ["fzf"]="install_fzf"
     ["fish"]="install_fish"
