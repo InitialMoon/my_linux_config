@@ -209,7 +209,13 @@ declare -A config_software_list=(
 
 # 复制基本配置文件到用户根目录下
 basic_config
-install_fish
+
+if ! command_exists "fish"; then
+    echo "fish 未安装，开始安装..."
+    install_fish
+else
+    echo "fish 已安装"
+fi
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
