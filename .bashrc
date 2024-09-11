@@ -139,3 +139,19 @@ set -o vi
 # unset __conda_setup
 # <<< conda initialize <<<
 export PATH=$PATH:~/.local/bin
+
+# vpn
+function proxy_on() {
+    export http_proxy=http://127.0.0.1:63572
+    export https_proxy=$http_proxy
+    echo -e "终端代理已开启。注意端口号需要和本机进行手动适配，请找到.bashrc文件中的proxy_on函数进行修改"
+    echo -e "peoxy_off to close"
+}
+
+function proxy_off(){
+    unset http_proxy https_proxy
+    echo -e "终端代理已关闭。"
+    echo -e "peoxy_on to close"
+}
+
+echo "开启网络代理请使用proxy_on命令"

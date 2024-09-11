@@ -137,9 +137,11 @@ chmod +x run_config.sh
 >
 > 需要小心编辑 `sudoers` 文件，因为格式错误可能导致你无法使用 `sudo`。使用 `visudo` 是防止这种错误的安全措施。
 
+### Step 3 Install tmux plugin
 
+I have install the omf and setting some config in .tmux.conf for you,  but you have to activate tmux and use `perfix + I` to install plugin, perfix is `Ctrl+d`
 
-### Step 3 
+### Other things TODO
 
 if pip3 is installed, you can install tldr, you maybe config your python env before this step
 

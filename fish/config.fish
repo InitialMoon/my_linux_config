@@ -10,7 +10,20 @@ function fish_user_key_bindings
     end
 end
 
+function proxy_on
+    set -x http_proxy http://127.0.0.1:63572
+    set -x https_proxy $http_proxy
+    echo "终端代理已开启。注意端口号需要和本机进行手动适配，请找到 config.fish 文件中的 proxy_on 函数进行修改"
+    echo "proxy_off to close"
+end
 
+function proxy_off
+    set -e http_proxy
+    set -e https_proxy
+    echo "终端代理已关闭。"
+end
+
+echo "开启网络代理请使用proxy_on命令"
 # sudo service binfmt-support start
 
 # >>> conda initialize >>>
