@@ -8,9 +8,19 @@ command_exists() {
     command -v "$1" &> /dev/null
 }
 
-# 全局安装 unzip
+# 全局安装 htop
 install_htop() {
     apt-get install htop
+}
+
+# 全局安装 fzf
+install_tldr() {
+    pip3 install tldr
+}
+
+# 全局安装 fzf
+install_fzf() {
+    apt-get install fzf
 }
 
 # 全局安装 unzip
@@ -19,7 +29,7 @@ install_unzip() {
 }
 
 # 用户自身安装oh my fish，主要是为了支持一些插件
-install_oh_my_fish() {
+install_omf() {
     # install oh my fish
     curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
     fish install --path=~/.local/share/omf --config=~/.config/omf
@@ -45,6 +55,15 @@ install_oh_my_posh() {
     else
         echo "Oh My Posh 已存在于 bash 配置文件中"
     fi
+
+    # # 为 Fish shell 配置 oh-my-posh
+    # echo "正在为 Fish 终端配置 Oh My Posh..."
+    # if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
+    #     echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
+    #     echo "Oh My Posh 已添加到 Fish 配置文件中"
+    # else
+    #     echo "Oh My Posh 已存在于 Fish 配置文件中"
+    # fi
 
     if ! command_exists "oh-my-posh"; then
         echo "oh-my-posh 未安装，开始安装..."
@@ -87,39 +106,48 @@ install_fish() {
 
     # 提示用户需要更改默认 shell（如果需要）
     echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"
+    echo "chsh -l               //列出可用shell"
+    echo "chsh -s /bin/fish     //设置shell为/bin/fish"
 }
 
-# 配置 oh-my-posh
+basic_config() {
+    cp -u .profile ~/
+    cp -u .bashrc ~/
+    cp -u .vimrc ~/
+    cp -u .gitconfig ~/
+}
+
 config_oh_my_posh() {
-    echo "正在为 Bash 终端配置 Oh My Posh..."
+    cp ./.omp_themes ..
+    echo "为fish和bash使用oh-my-posh进行主题配置"
+    echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.json)'"
+    echo 'eval "$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.omp.json)"' >> ~/.bashrc
+    echo 'oh-my-posh init --shell fish --config ~/.ompthemes/spaceship.omp.json' >> ~/.config/fish/config.fish
+}
 
-    # 为当前用户的 Bash 终端配置 oh-my-posh
-    if ! grep -q 'oh-my-posh' ~/.bashrc; then
-        echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc
-        echo "Oh My Posh 已添加到 Bash 配置文件中"
-    else
-        echo "Oh My Posh 已存在于 Bash 配置文件中"
-    fi
+# 配置 oh-my-fish
+config_omf() {
+    echo "正在为 fish 终端配置 Oh My Fish..."
 
+    omf install https://github.com/h-matsuo/fish-color-scheme-switcher
     # 为 Fish shell 配置 oh-my-posh
-    echo "正在为 Fish 终端配置 Oh My Posh..."
-    if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
-        echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
-        echo "Oh My Posh 已添加到 Fish 配置文件中"
-    else
-        echo "Oh My Posh 已存在于 Fish 配置文件中"
-    fi
 
     # 提示用户手动重载配置
-    echo "请手动运行 'source ~/.bashrc' 或 'exec bash' 以使 Bash 配置生效。"
     echo "Fish 用户请手动运行 'exec fish' 以使 Fish 配置生效。"
+    omf reload
 }
 
 # 配置 fish
 config_fish() {
-    install_oh_my_fish
+    # if ! command_exists "omf"; then
+    #     echo "omf 未安装，开始安装..."
+    #     install_omf
+    #     config_omf
+    # else
+    #     echo "omf 已安装"
+    # fi
     cp -u -r fish ~/.config/
-    cp -u -r omf ~/.config/
+    # cp -u -r omf ~/.config/
 }
 
 # 配置 tmux
@@ -132,9 +160,12 @@ config_tmux() {
 
 # 定义软件名称与对应的安装函数
 declare -A install_software_list=(
+    ["tldr"]="install_tldr"
+    ["htop"]="install_htop"
+    ["fzf"]="install_fzf"
     ["fish"]="install_fish"
     ["oh-my-posh"]="install_oh_my_posh"
-    ["htop"]="install_htop"
+    # ["omf"]="install_omf"
 )
 
 # 定义软件名称与对应的安装函数
@@ -145,13 +176,7 @@ declare -A config_software_list=(
 )
 
 # 复制基本配置文件到用户根目录下
-cp -u .profile ~/
-cp -u .bashrc ~/
-cp -u .vimrc ~/
-cp -u .gitconfig ~/
-
-# 将用户本地的local文件夹添加到环境变量中实现
-# echo "这是要添加到文件开头的句子" | cat - 文件名 > temp_file && mv temp_file 文件名
+basic_config
 
 # 循环检查并安装软件
 for software in "${!install_software_list[@]}"; do
@@ -173,3 +198,6 @@ for software in "${!config_software_list[@]}"; do
     fi
 done
 
+# 一些可能未来要用到的知识
+# 将用户本地的local文件夹添加到环境变量中实现
+# echo "这是要添加到文件开头的句子" | cat - 文件名 > temp_file && mv temp_file 文件名

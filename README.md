@@ -1,10 +1,25 @@
-# my_linux_config
+# my_Linux_config
 
-A set of my linux config, for copy my work config quickly cross different linux env, now which is Ubuntu.
+A set of my Linux config, for copy my work config quickly cross different Linux env, now which is Ubuntu.
 
 ## Hypothesis
 
 You are on a Linux system, doc only test on Ubuntu18.04/20.04.
+
+- **git**, version 1.9.5 or later
+
+- apt install can use
+
+- pip3 is installed, install tldr
+
+- You have a user account on your Linux system
+
+  ```bash
+  # Create an account for yourself
+  $ sudo useradd -d "/home/moon" -m -s "/bin/bash" moon
+  # If you forget your password, 
+  sudo passwd moon
+  ```
 
 ## Method
 

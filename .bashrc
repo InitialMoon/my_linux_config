@@ -139,4 +139,3 @@ set -o vi
 # unset __conda_setup
 # <<< conda initialize <<<
 export PATH=$PATH:~/.local/bin
-eval "$(oh-my-posh init bash)"
