@@ -51,15 +51,6 @@ install_oh_my_posh() {
         echo "Oh My Posh 已存在于 bash 配置文件中"
     fi
 
-    # # 为 Fish shell 配置 oh-my-posh
-    # echo "正在为 Fish 终端配置 Oh My Posh..."
-    # if ! grep -q 'oh-my-posh' ~/.config/fish/config.fish; then
-    #     echo 'oh-my-posh init fish | source' >> ~/.config/fish/config.fish
-    #     echo "Oh My Posh 已添加到 Fish 配置文件中"
-    # else
-    #     echo "Oh My Posh 已存在于 Fish 配置文件中"
-    # fi
-
     if ! command_exists "oh-my-posh"; then
         echo "oh-my-posh 未安装，开始安装..."
         if ! curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin; then
@@ -116,8 +107,20 @@ config_oh_my_posh() {
     cp -r -u ./.omp_themes ..
     echo "为fish和bash使用oh-my-posh进行主题配置"
     echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.json)'"
-    echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
-    echo 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
+    if ! grep -q 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' ~/.bashrc; then
+        echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
+        echo "Oh My Posh 已添加到 bash 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 bash 配置文件中"
+    fi
+
+    if ! grep -q 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' ~/.config/fish/config.fish; then
+        echo 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
+        echo "Oh My Posh 已添加到 fish 配置文件中"
+    else
+        echo "Oh My Posh 已存在于 fish 配置文件中"
+    fi
+
 }
 
 # 配置 oh-my-fish
