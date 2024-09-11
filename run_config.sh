@@ -116,8 +116,8 @@ config_oh_my_posh() {
     cp -r -u ./.omp_themes ..
     echo "为fish和bash使用oh-my-posh进行主题配置"
     echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.json)'"
-    echo 'eval "$(oh-my-posh init --shell bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
-    echo 'oh-my-posh init --shell fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
+    echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
+    echo 'oh-my-posh init fish --config ~/.omp_themes/spaceship.omp.json' >> ~/.config/fish/config.fish
 }
 
 # 配置 oh-my-fish
@@ -148,7 +148,6 @@ config_fish() {
 # 配置 tmux
 config_tmux() {
     cp -u .tmux.conf ~/
-    cp -r .tmux ~/
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     tmux source ~/.tmux.conf
 }
