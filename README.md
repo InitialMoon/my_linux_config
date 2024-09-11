@@ -6,7 +6,7 @@ A set of my Linux config, for copy my work config quickly cross different Linux 
 
 ## Hypothesis
 
-You are on a Linux system, doc only test on Ubuntu24.04.
+You are on a Linux system, doc only test on Ubuntu18.04/22.04/24.04.
 
 - **git**, version 1.9.5 or later
 
@@ -153,9 +153,13 @@ chsh -s /usr/bin/fish
 omf install bobthefish
 omf theme bobthefish
 omf doctor
-echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
+echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish # 如果不生效用下面这一行
+set theme_color_scheme nord # 一次性
+
 omf install https://github.com/h-matsuo/fish-color-scheme-switcher
-echo 'scheme set catppuccin' >> ~/.config/fish/config.fish
+echo 'scheme set catppuccin' >> ~/.config/fish/config.fish # 同上，如果不生效用下面这一行
+scheme set catppuccin # 一次性
+
 omf reload
 ```
 
