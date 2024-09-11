@@ -57,6 +57,7 @@ install_oh_my_posh() {
     else
         echo "unzip 已安装"
     fi
+    mkdir ~/.local/bin
 
     echo "Oh My Posh 添加到环境变量中"
     if ! grep -q 'export PATH=$PATH:~/.local/bin' ~/.bashrc; then
