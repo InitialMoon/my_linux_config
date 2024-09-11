@@ -34,7 +34,6 @@ install_omf() {
     omf theme bobthefish
     omf doctor
     # 设置bobthefish提供的命令提示符的颜色配置
-    set theme_color_scheme nord
     # 这里的color-scheme指的是在输入命令的时候的高亮颜色方案
     if ! grep -q 'set theme_color_scheme nord' ~/.config/fish/config.fish; then
         echo 'set theme_color_scheme nord' >> ~/.config/fish/config.fish
@@ -146,7 +145,7 @@ basic_config() {
 config_oh_my_posh() {
     cp -r -u ./.omp_themes ..
     echo "为fish和bash使用oh-my-posh进行主题配置"
-    echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init --shell bash --config ~/.ompthemes/spaceship.json)'"
+    echo "Oh My Posh 设置主题， 如果想要更改请找到\n .bashrc 和 .config/fish/config.fish 文件中的eval '$(oh-my-posh init bash --config ~/.ompthemes/spaceship.json)'"
     if ! grep -q 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' ~/.bashrc; then
         echo 'eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"' >> ~/.bashrc
         echo "Oh My Posh 已添加到 bash 配置文件中"
@@ -172,6 +171,7 @@ config_omf() {
 
 # 配置 fish
 config_fish() {
+    cp -u -r fish ~/.config/
     if ! grep -q 'COPY . /src/oh-my-fish' ~/.local/share/omf/Dockerfile; then
         echo "Oh My Fish 未安装"
         echo "开始安装..."
@@ -180,8 +180,6 @@ config_fish() {
     else
         echo "Oh My Fish 已安装"
     fi
-    cp -u -r fish ~/.config/
-    # cp -u -r omf ~/.config/
 }
 
 # 配置 tmux
@@ -198,7 +196,6 @@ declare -A install_software_list=(
     ["htop"]="install_htop"
     # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
-    # ["omf"]="install_omf"
 )
 
 # 定义软件名称与对应的安装函数
