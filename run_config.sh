@@ -31,6 +31,25 @@ install_omf() {
     fish install --path=~/.local/share/omf --config=~/.config/omf
 }
 
+# 全局安装 neovim
+install_nvim() {
+    # sudo apt-get install neovim
+    sudo apt install neovim
+    mkdir -p ~/.config
+    cp -u -r nvim ~/.config/
+
+    # required
+    echo "use lazy nvim to config"
+    mv ~/.config/nvim{,.bak}
+
+    # optional but recommended
+    mv ~/.local/share/nvim{,.bak}
+    mv ~/.local/state/nvim{,.bak}
+    mv ~/.cache/nvim{,.bak}
+    cp -r nvim ~/.config/
+    echo "lazy nvim config complete!"
+}
+
 # 安装 oh-my-posh
 install_oh_my_posh() {
     echo "正在安装 Oh My Posh..."
@@ -92,6 +111,21 @@ install_fish() {
         echo '/usr/bin/fish' | sudo tee -a /etc/shells
     fi
 
+}
+
+rust_install() {
+    echo "we are install rust for you, please follow prompt to install it!"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup update
+}
+
+yazi_install() {
+    if  ! command_exists "cargo"; then
+        rust_install
+    else
+        echo "rust have been installed!"
+    fi
+    cargo install --locked yazi-fm yazi-cli
 }
 
 basic_config() {
@@ -192,6 +226,8 @@ declare -A install_software_list=(
     ["htop"]="install_htop"
     # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
+    # ["yazi"]="yazi_install"
+    ["nvim"]="install_nvim"
 )
 
 # 定义软件名称与对应的安装函数
@@ -231,6 +267,7 @@ for software in "${!config_software_list[@]}"; do
         echo "$software 未安装"
     fi
 done
+
 
 # 提示用户需要更改默认 shell（如果需要）
 echo "Fish Shell 安装完成。你可以使用 'chsh -s /usr/bin/fish' 来将 fish 设置为默认 shell。"

@@ -98,14 +98,18 @@ set -o vi
 
 # vpn
 function proxy_on() {
-    export http_proxy=http://127.0.0.1:63572
+    export http_proxy=http://127.0.0.1:$1
     export https_proxy=$http_proxy
+    git config --global https.proxy https://127.0.0.1:$1
+    git config --global http.proxy http://127.0.0.1:$1
     echo -e "终端代理已开启。注意端口号需要和本机进行手动适配，请找到.bashrc文件中的proxy_on函数进行修改"
     echo -e "peoxy_off to close"
 }
 
 function proxy_off(){
     unset http_proxy https_proxy
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
     echo -e "终端代理已关闭。"
     echo -e "peoxy_on to close"
 }

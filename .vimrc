@@ -1,5 +1,6 @@
 """
 "# help doc
+"分屏移动 前缀 Ctrl+w hjkl
 "在 Vim 中，键位映射命令有以下几类：
 
 "1. **`map`**：普通映射，适用于所有模式（普通模式、插入模式、视觉模式等）。
@@ -83,13 +84,28 @@ set wildmenu
 
 "将无用的Ex模式的开关给屏蔽掉
 nmap Q <Nop>
+map s <nop>
+map S :w<CR>
+map Q :q<CR>
+map R :source $MYVIMRC<CR>
 
 " 空格实现关闭搜索结果
 nnoremap <LEADER><CR> :nohlsearch<CR>
 " 分屏以及退出
-nnoremap <LEADER>j :split<CR>
-nnoremap <LEADER>l :vsplit<CR>
-nnoremap <LEADER>q :q<CR>
+map sj :set splitbelow<CR>: split<CR>
+map sk :set nosplitright<CR>: split<CR>
+map sl :set splitright<CR>: vsplit<CR>
+map sh :set nosplitright<CR>: vsplit<CR>
+
+map <LEADER>l <C-w>l
+map <LEADER>j <C-w>j
+map <LEADER>k <C-w>k
+map <LEADER>h <C-w>h
+
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize-5<CR>
+map <right> :vertical resize+5<CR>
 
 " 定义添加注释的函数
 function! AddComment()
