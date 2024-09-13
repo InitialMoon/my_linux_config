@@ -16,11 +16,12 @@ When you encounter problems with downloading, pay attention to the vpn problem. 
 v1.0 is basic config, with the increasement of v1.0./x means there are more features add to config, but means higher perfromance consumption, you can tailored to individual needs to select a suitable version to config your system.
 
 
-v2.0 have the same principle, but this version have higher requirements for your system version, for example, now to use lazyvim in v2.0 to config the neovim, your neovim need to highter than 0.8.0, but Ubuntu22.04 auto install the 0.6.0, which is not satisfy its need, so v2.0 need a lot update to solve this limitation.
+v1.x have the same principle, but this version have higher requirements for your system version, for example, now to use lazyvim in v1.1 to config the neovim, your neovim need to highter than 0.8.0, but Ubuntu22.04 auto install the 0.6.0, which is not satisfy its need, so v1.1 need a lot update to solve this limitation.
 
 **v1.0** (basic config): bash/fish/tmux/oh-my-posh/oh-my-fish/vimrc
 **v1.0.1** (more feature basic config) : base on v1.0, add ranger to manage file system
 **v1.1.** : bash/fish/tmux/oh-my-posh/oh-my-fish/vimrc
+**v1.2** : add ranger
 ## Hypothesis
 
 You are on a Linux system, doc only test on Ubuntu18.04/22.04/24.04.
