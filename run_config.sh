@@ -94,6 +94,18 @@ install_fish() {
 
 }
 
+install_ranger() {
+  # 保存当前路径
+  local current_dir=$(pwd)
+  
+  # 切换到ranger目录并执行安装命令
+  cd ranger || exit
+  sudo make install
+
+  # 返回原路径
+  cd "$current_dir"
+}
+
 basic_config() {
     # 防止原始设置被覆盖
     echo "备份原始配置"
@@ -190,8 +202,8 @@ config_tmux() {
 # 暂且先将要在之前安装的部分放在外面
 declare -A install_software_list=(
     ["htop"]="install_htop"
-    # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
+    ["ranger"]="install_ranger"
 )
 
 # 定义软件名称与对应的安装函数
