@@ -48,6 +48,9 @@ install_nvim() {
     mv ~/.cache/nvim{,.bak}
     cp -r nvim ~/.config/
     echo "lazy nvim config complete!"
+
+    # alias vi as nvim, vim is vim
+    alias vi nvim
 }
 
 # 安装 oh-my-posh
@@ -126,6 +129,18 @@ yazi_install() {
         echo "rust have been installed!"
     fi
     cargo install --locked yazi-fm yazi-cli
+}
+
+install_ranger() {
+  # 保存当前路径
+  local current_dir=$(pwd)
+  
+  # 切换到ranger目录并执行安装命令
+  cd ranger || exit
+  sudo make install
+
+  # 返回原路径
+  cd "$current_dir"
 }
 
 basic_config() {
@@ -228,6 +243,7 @@ declare -A install_software_list=(
     ["oh-my-posh"]="install_oh_my_posh"
     # ["yazi"]="yazi_install"
     ["nvim"]="install_nvim"
+    ["ranger"]="install_ranger"
 )
 
 # 定义软件名称与对应的安装函数
