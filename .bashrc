@@ -100,20 +100,27 @@ set -o vi
 function proxy_on() {
     export http_proxy=http://127.0.0.1:$1
     export https_proxy=$http_proxy
-    git config --global https.proxy https://127.0.0.1:$1
+    # 不需要认证的 HTTP 代理
     git config --global http.proxy http://127.0.0.1:$1
+    # 不需要认证的 HTTPS 代理
+    git config --global https.proxy https://127.0.0.1:$1
     echo -e "终端代理已开启。注意端口号需要和本机进行手动适配，请找到.bashrc文件中的proxy_on函数进行修改"
     echo -e "peoxy_off to close"
 }
 
 function proxy_off(){
     unset http_proxy https_proxy
+    # 删除 HTTP 代理
     git config --global --unset http.proxy
+    # 删除 HTTPS 代理
     git config --global --unset https.proxy
     echo -e "终端代理已关闭。"
     echo -e "peoxy_on to close"
 }
 
+echo "git proxy now is"
+git config --global --get http.proxy
+git config --global --get https.proxy
 echo "开启网络代理请使用proxy_on命令"
 
 # >>> conda initialize >>>
@@ -130,3 +137,5 @@ echo "开启网络代理请使用proxy_on命令"
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
+\n
+eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"

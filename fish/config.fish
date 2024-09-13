@@ -24,17 +24,6 @@ function proxy_off
 end
 
 echo "开启网络代理请使用proxy_on命令"
-
-# Created by `pipx` on 2024-08-21 12:48:44
-# Add user software to env path
-set PATH $PATH ~/.local/bin
-
-# nodejs18 setting
-
-# fish_add_path /home/linuxbrew/.linuxbrew/opt/node@18/bin
-# set -gx LDFLAGS "-L/home/linuxbrew/.linuxbrew/opt/node@18/lib"
-# set -gx CPPFLAGS "-I/home/linuxbrew/.linuxbrew/opt/node@18/include"
-
 # sudo service binfmt-support start
 
 # >>> conda initialize >>>
@@ -54,3 +43,15 @@ set PATH $PATH ~/.local/bin
 # set -Ux PATH $PYENV_ROOT/bin $PATH
 # set -Ux PATH /usr/local/nodejs/bin
 
+
+# Created by `pipx` on 2024-08-21 12:48:44
+# Add user software to env path
+set PATH $PATH ~/.local/bin
+
+# nodejs18 setting
+
+# fish_add_path /home/linuxbrew/.linuxbrew/opt/node@18/bin
+# set -gx LDFLAGS "-L/home/linuxbrew/.linuxbrew/opt/node@18/lib"
+# set -gx CPPFLAGS "-I/home/linuxbrew/.linuxbrew/opt/node@18/include"
+set theme_color_scheme nord
+scheme set catppuccin
