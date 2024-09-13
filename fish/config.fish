@@ -13,6 +13,12 @@ end
 function proxy_on
     set -x http_proxy http://127.0.0.1:$argv[1]
     set -x https_proxy $http_proxy
+    # 不需要认证的 HTTP 代理
+    git config --global http.proxy http://127.0.0.1:$argv[1]
+
+# 不需要认证的 HTTPS 代理
+    git config --global https.proxy https://127.0.0.1:$argv[1]
+
     echo "终端代理已开启。注意端口号需要和本机进行手动适配，请找到 config.fish 文件中的 proxy_on 函数进行修改"
     echo "proxy_off to close"
 end
@@ -20,6 +26,12 @@ end
 function proxy_off
     set -e http_proxy
     set -e https_proxy
+    # 删除 HTTP 代理
+    git config --global --unset http.proxy
+
+# 删除 HTTPS 代理
+    git config --global --unset https.proxy
+
     echo "终端代理已关闭。"
 end
 
