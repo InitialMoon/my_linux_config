@@ -239,7 +239,6 @@ config_tmux() {
 # 暂且先将要在之前安装的部分放在外面
 declare -A install_software_list=(
     ["htop"]="install_htop"
-    # ["fzf"]="install_fzf"
     ["oh-my-posh"]="install_oh_my_posh"
     # ["yazi"]="yazi_install"
     ["nvim"]="install_nvim"

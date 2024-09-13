@@ -107,6 +107,13 @@ map <down> :res -5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 
+" 空格实现关闭搜索结果
+nnoremap <LEADER><CR> :nohlsearch<CR>
+" 分屏以及退出
+nnoremap <LEADER>j :split<CR>
+nnoremap <LEADER>l :vsplit<CR>
+nnoremap <LEADER>q :q<CR>
+
 " 定义添加注释的函数
 function! AddComment()
     " 获取当前行内容
