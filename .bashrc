@@ -137,5 +137,5 @@ echo "开启网络代理请使用proxy_on命令"
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
-\n
 eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"
+alias vi nvim

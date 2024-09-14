@@ -67,3 +67,4 @@ set PATH $PATH ~/.local/bin
 # set -gx CPPFLAGS "-I/home/linuxbrew/.linuxbrew/opt/node@18/include"
 set theme_color_scheme nord
 scheme set catppuccin
+alias vi nvim
