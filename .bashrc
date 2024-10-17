@@ -139,3 +139,6 @@ echo "开启网络代理请使用proxy_on命令"
 # <<< conda initialize <<<
 eval "$(oh-my-posh init bash --config ~/.omp_themes/spaceship.omp.json)"
 alias vi nvim
+
+# swap the esc and caps Lock key
+setxkbmap -option caps:swapescape
