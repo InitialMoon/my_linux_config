@@ -4,7 +4,7 @@
 [core]
 	editor = vim
 	quotepath = false
-	autocrlf = true
+	autocrlf = false
 [init]
 	defaultBranch = master
 [alias]
